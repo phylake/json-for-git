@@ -1,6 +1,6 @@
 --------------------------------------------------------------------
 -- |
--- Module    : Text2.JSON.Pretty
+-- Module    : Text.JSON.Pretty
 -- Copyright : (c) Galois, Inc. 2007-2009
 -- License   : BSD3
 --
@@ -24,12 +24,12 @@ import Text.PrettyPrint.HughesPJ hiding (brackets, braces)
 
 pp_value :: JSValue -> Doc
 pp_value v = case v of
-  JSNull       -> pp_null
-  JSBool x     -> pp_boolean x
+  JSNull           -> pp_null
+  JSBool x         -> pp_boolean x
   JSRational asf x -> pp_number asf x
-  JSString x   -> pp_js_string x
-  JSArray vs   -> pp_array vs
-  JSObject xs  -> pp_js_object xs
+  JSString x       -> pp_js_string x
+  JSArray vs       -> pp_array vs
+  JSObject xs      -> pp_js_object xs
 
 pp_null :: Doc
 pp_null = text "null"
@@ -71,8 +71,7 @@ pp_js_string x = pp_string (fromJSString x)
 
 pp_js_object :: JSObject JSValue -> Doc
 pp_js_object x = pp_object (sortBy sortF $ fromJSObject x)
-  where
-    sortF (a,_) (b,_) = compare a b
+  where sortF (a,_) (b,_) = compare a b
 
 brackets :: Doc -> Doc
 brackets p = lbrack $+$ p $+$ rbrack
